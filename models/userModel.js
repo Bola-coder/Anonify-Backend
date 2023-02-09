@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
   slug: {
     type: String,
   },
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 // A database middleware to hash the password before saving to the database;
@@ -37,6 +41,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// Hook to check if password has been modifeid and then give a value to passwordChangedAt
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password") || this.isNew) {
     return next();

@@ -54,6 +54,7 @@ const login = catchAsync(async (req, res, next) => {
     token,
     email: user.email,
     username: user.username,
+    slug: user.slug,
   });
 });
 
