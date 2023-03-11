@@ -60,30 +60,27 @@ const errorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
   if (process.env.NODE_ENV === "development") {
-    console.log(process.env.NODE_ENV);
     sendDevError(err, res);
   } else if (process.env.NODE_ENV === "production") {
-    console.log(process.env.NODE_ENV);
     // Other conditionals here
     let error = JSON.parse(JSON.stringify(err));
     console.log(error);
-    if (error.name == "CastError") {
-      error = handleCastErrorDB(error);
+    if (err.name == "CastError") {
+      err = handleCastErrorDB(err);
     }
-    if (error.code == 11000) {
-      error = handleDuplicateValueErrorDB(error);
+    if (err.code == 11000) {
+      err = handleDuplicateValueErrorDB(err);
     }
-    if (error.name === "ValidationError") {
-      error = handleValidationErrorDB(error);
+    if (err.name === "ValidationError") {
+      err = handleValidationErrorDB(err);
     }
-    if (error.name === "JsonWebTokenError") {
-      error = handleJWTError(error);
+    if (err.name === "JsonWebTokenError") {
+      err = handleJWTError(err);
     }
-    if (error.name === "TokenExpiredError") {
-      error = handleJWTExpiredError(error);
+    if (err.name === "TokenExpiredError") {
+      err = handleJWTExpiredError(err);
     }
-    console.log(error);
-    sendProdError(error, res);
+    sendProdError(err, res);
   }
 
   next();
