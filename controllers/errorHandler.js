@@ -82,6 +82,7 @@ const errorHandler = (err, req, res, next) => {
     if (error.name === "TokenExpiredError") {
       error = handleJWTExpiredError(error);
     }
+    console.log(error);
     sendProdError(error, res);
   }
 
