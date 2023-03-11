@@ -1,9 +1,8 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require("dotenv").config();
+// dotenv.config({ path: "./config.env" });
 const app = require("./app");
-const connectToDB = require("./util/dbconfig");
 
-// Creating server that app listens on
+const connectToDB = require("./util/dbconfig");
 
 connectToDB();
 

@@ -8,12 +8,12 @@ const userRouter = require("./routes/user");
 const errorHandler = require("./controllers/errorHandler");
 const AppError = require("./util/AppError");
 
-if ((process.env.NODE_ENV = "development")) {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
 app.use(cors());
-
+console.log("Current Node Env is: ", process.env.NODE_ENV);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -1,6 +1,6 @@
 const AppError = require("./../util/AppError");
 
-const handleCastErrorDb = () => {
+const handleCastErrorDB = () => {
   const message = `Invalid ${err.path}: ${err.value}.`;
   return new AppError(message, 400);
 };
@@ -60,10 +60,13 @@ const errorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
   if (process.env.NODE_ENV === "development") {
+    console.log(process.env.NODE_ENV);
     sendDevError(err, res);
   } else if (process.env.NODE_ENV === "production") {
+    console.log(process.env.NODE_ENV);
     // Other conditionals here
     let error = JSON.parse(JSON.stringify(err));
+    console.log(error);
     if (error.name == "CastError") {
       error = handleCastErrorDB(error);
     }
@@ -79,7 +82,7 @@ const errorHandler = (err, req, res, next) => {
     if (error.name === "TokenExpiredError") {
       error = handleJWTExpiredError(error);
     }
-    sendProdError(err, res);
+    sendProdError(error, res);
   }
 
   next();
