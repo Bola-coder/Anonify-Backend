@@ -8,6 +8,7 @@ const getAllMessages = catchAsync(async (req, res, next) => {
     "-timeSent"
   );
   res.status(200).json({
+    result: messages.length,
     status: "Success",
     data: messages,
   });
