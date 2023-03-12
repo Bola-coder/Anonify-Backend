@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
     unique: [true, "Username already taken by another user"],
-    required: [true, "You should provide a username"],
+    required: [true, "Please should provide a username"],
     minLength: [4, "Your username should be a minimum of 4 characters"],
     maxLength: [16, "Your username should be a maximum of 16 characters"],
     trim: true,
@@ -18,6 +18,7 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
+    required: [true, "Please provide a password"],
     minLength: [8, "Your password should be a minimum of 8 characters"],
     select: false,
   },
